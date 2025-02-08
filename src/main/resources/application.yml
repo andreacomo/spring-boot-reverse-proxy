@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: spring-boot-reverse-proxy
+
+  threads:
+    virtual:
+      enabled: true
+
+config:
+  proxy:
+    url: https://cyk7fqez1wg000018te0gxjuz5ayyyyyb.oast.pro
