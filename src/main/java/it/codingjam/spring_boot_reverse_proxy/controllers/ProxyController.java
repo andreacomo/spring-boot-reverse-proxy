@@ -30,9 +30,10 @@ public class ProxyController {
     @RequestMapping(value = "/**")
     // StreamingResponseBody
     public ResponseEntity<InputStreamResource> proxy(HttpServletRequest request) throws IOException {
-        LOGGER.info("Ready to proxy");
+        LOGGER.info("Ready to proxy (in virtual thread? {}) on thread id {}",
+                Thread.currentThread().isVirtual(), Thread.currentThread().threadId());
         RestClient.RequestHeadersSpec.ConvertibleClientHttpResponse response = httpRepository.doProxy(proxyTo, request);
-        LOGGER.info("Response retrieved with {}", response.getStatusCode());
+        LOGGER.info("Response retrieved with {} on thread id {}", response.getStatusCode(), Thread.currentThread().threadId());
         return new ResponseEntity<>(
                 // out -> StreamUtils.copy(response.getBody(), out),
                 new InputStreamResource(response.getBody()),
